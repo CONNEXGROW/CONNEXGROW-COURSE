@@ -16,6 +16,7 @@
       width: 100%; /* Full width */
       height: 100%; /* Full height */
       overflow: auto; /* Enable scroll if needed */
+      background-color: rgb(0,0,0); /* Fallback color */
       background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
     }
 
@@ -78,33 +79,21 @@
   <section id="courses">
     <div class="course">
       <h2>WHAT IS EBITA</h2>
-      <img src="https://media.istockphoto.com/id/471463475/photo/facebook-page-of-justin-bieber-on-rgb-laptop-monitor.jpg?s=2048x2048&w=is&k=20&c=tWnVot0cBjXTU4Ib2kj1tpqiY15Pjrbg05BEUzA3JrQ=" alt="Course Image" class="course-image">
-      <p> HEHE.</p>
+      <img src="https://raw.githubusercontent.com/username/repository/branch/path/to/your-image.jpg" alt="Course Image" class="course-image">
+      <p>This course will teach you the basics of programming.</p>
       <button onclick="openVideoModal('https://firebasestorage.googleapis.com/v0/b/connex-832db.appspot.com/o/dheere%20dheere%20se(1080p).mp4?alt=media&token=ac431609-0825-49d7-b16c-07b2c0d18995')">Watch Video</button>
     </div>
-
-    <div class="course">
-      <h2> WOMP WOMP</h2>
-      <img src="https://media.istockphoto.com/id/471463475/photo/facebook-page-of-justin-bieber-on-rgb-laptop-monitor.jpg?s=2048x2048&w=is&k=20&c=tWnVot0cBjXTU4Ib2kj1tpqiY15Pjrbg05BEUzA3JrQ=" alt="Course Image" class="course-image">
-      <p>HELLO GUYS.</p>
-      <button onclick="openVideoModal('https://firebasestorage.googleapis.com/v0/b/connex-832db.appspot.com/o/BB4153EF165B05D6ECA2E965F9B379B3_video_dashinit.mp4?alt=media&token=59899bd4-3db5-40ef-ab06-4637a380cd4c')">Watch Video</button>
-    </div>
-
-    <div class="course">
-      <h2> OOOOO YEAHH</h2>
-      <img src=" https://media.istockphoto.com/id/471463475/photo/facebook-page-of-justin-bieber-on-rgb-laptop-monitor.jpg?s=2048x2048&w=is&k=20&c=tWnVot0cBjXTU4Ib2kj1tpqiY15Pjrbg05BEUzA3JrQ=" alt="Course Image" class="course-image">
-      <p> HELLLO KON.</p>
-      <button onclick="openVideoModal('https://firebasestorage.googleapis.com/v0/b/connex-832db.appspot.com/o/DF459A171969933F9946EC33663FC8A0_video_dashinit.mp4?alt=media&token=91a2db7e-e62d-4cb1-9902-7619245a9cdd')">Watch Video</button>
-    </div>
-
-  
   </section>
 
   <!-- The Modal -->
   <div id="videoModal" class="modal">
     <div class="modal-content">
       <span class="close">&times;</span>
-      <iframe id="modalVideo" width="100%" height="450" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen controlsList="nodownload"></iframe>
+      <!-- The Video with controlsList attribute -->
+      <video id="modalVideo" controls controlsList="nodownload" width="100%" height="450">
+        <source src="" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
     </div>
   </div>
 
@@ -112,23 +101,33 @@
     // Function to open the modal and play the video
     function openVideoModal(videoURL) {
       var modal = document.getElementById("videoModal");
-      var iframe = document.getElementById("modalVideo");
+      var video = document.getElementById("modalVideo");
       var span = document.getElementsByClassName("close")[0];
 
-      iframe.src = videoURL;
+      // Set the video source and show the modal
+      video.src = videoURL;
       modal.style.display = "block";
 
+      // Close the modal on clicking 'X'
       span.onclick = function() {
         modal.style.display = "none";
-        iframe.src = ""; // Stop video when closing
-      }
+        video.pause(); // Pause the video
+        video.src = ""; // Clear the video source
+      };
 
+      // Close the modal if clicked outside the modal content
       window.onclick = function(event) {
         if (event.target == modal) {
           modal.style.display = "none";
-          iframe.src = ""; // Stop video when closing
+          video.pause(); // Pause the video
+          video.src = ""; // Clear the video source
         }
-      }
+      };
+
+      // Disable right-click context menu on video (to prevent downloads)
+      video.addEventListener('contextmenu', function(e) {
+        e.preventDefault(); // Disable right-click menu
+      });
     }
   </script>
 </body>
