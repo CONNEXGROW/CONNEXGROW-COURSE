@@ -16,7 +16,6 @@
       width: 100%; /* Full width */
       height: 100%; /* Full height */
       overflow: auto; /* Enable scroll if needed */
-      background-color: rgb(0,0,0); /* Fallback color */
       background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
     }
 
@@ -43,14 +42,22 @@
       cursor: pointer;
     }
 
-    /* Course Section Styling */
+    /* Horizontal Course Section Styling */
+    section#courses {
+      display: flex;
+      flex-direction: row; /* Arrange courses in a row */
+      gap: 20px;           /* Adds spacing between courses */
+      overflow-x: auto;    /* Enables horizontal scrolling */
+    }
+
     .course {
       background-color: #fff;
       border: 1px solid #ddd;
       padding: 20px;
-      margin: 20px 0;
       border-radius: 10px;
       text-align: center; /* Center-aligns text */
+      min-width: 300px;   /* Fixed width to prevent shrinking */
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
 
     .course h2 {
@@ -64,10 +71,10 @@
     }
 
     .course img {
-      max-width: 80%; /* Set max width of the image */
-      height: auto; /* Maintain aspect ratio */
-      margin: 20px 0; /* Adds margin around the image */
-      border-radius: 10px; /* Optional: add rounded corners */
+      max-width: 100%;
+      height: auto;
+      margin: 20px 0;
+      border-radius: 10px;
     }
   </style>
 </head>
@@ -79,38 +86,26 @@
   <section id="courses">
     <div class="course">
       <h2>WHAT IS EBITA</h2>
-      <img src="https://raw.githubusercontent.com/username/repository/branch/path/to/your-image.jpg" alt="Course Image" class="course-image">
-      <p>This course will teach you the basics of programming.</p>
+      <img src="https://raw.githubusercontent.com/username/repository/branch/path/to/your-image.jpg" alt="Course Image">
+      <p>This course will teach you the basics of EBITA.</p>
       <button onclick="openVideoModal('https://firebasestorage.googleapis.com/v0/b/connex-832db.appspot.com/o/dheere%20dheere%20se(1080p).mp4?alt=media&token=ac431609-0825-49d7-b16c-07b2c0d18995')">Watch Video</button>
     </div>
-  </section>
-   <section id="courses">
-    <div class="course">
-      <h2>WHAT IS EBITA</h2>
-      <img src="https://raw.githubusercontent.com/username/repository/branch/path/to/your-image.jpg" alt="Course Image" class="course-image">
-      <p>This course will teach you the basics of programming.</p>
-      <button onclick="openVideoModal('https://firebasestorage.googleapis.com/v0/b/connex-832db.appspot.com/o/dheere%20dheere%20se(1080p).mp4?alt=media&token=ac431609-0825-49d7-b16c-07b2c0d18995')">Watch Video</button>
-    </div>
-  </section>
- <section id="courses">
-    <div class="course">
-      <h2>WHAT IS EBITA</h2>
-      <img src="https://raw.githubusercontent.com/username/repository/branch/path/to/your-image.jpg" alt="Course Image" class="course-image">
-      <p>This course will teach you the basics of programming.</p>
-      <button onclick="openVideoModal('https://firebasestorage.googleapis.com/v0/b/connex-832db.appspot.com/o/dheere%20dheere%20se(1080p).mp4?alt=media&token=ac431609-0825-49d7-b16c-07b2c0d18995')">Watch Video</button>
-    </div>
-  </section>
 
+    <div class="course">
+      <h2>Introduction to Programming</h2>
+      <img src="https://raw.githubusercontent.com/username/repository/branch/path/to/your-image.jpg" alt="Course Image">
+      <p>This course will teach you the basics of programming.</p>
+      <button onclick="openVideoModal('https://firebasestorage.googleapis.com/v0/b/connex-832db.appspot.com/o/BB4153EF165B05D6ECA2E965F9B379B3_video_dashinit.mp4?alt=media&token=59899bd4-3db5-40ef-ab06-4637a380cd4c')">Watch Video</button>
+    </div>
+    
+    <!-- Add more courses as needed -->
+  </section>
 
   <!-- The Modal -->
   <div id="videoModal" class="modal">
     <div class="modal-content">
       <span class="close">&times;</span>
-      <!-- The Video with controlsList attribute -->
-      <video id="modalVideo" controls controlsList="nodownload" width="100%" height="450">
-        <source src="" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
+      <iframe id="modalVideo" width="100%" height="315" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
   </div>
 
@@ -118,33 +113,23 @@
     // Function to open the modal and play the video
     function openVideoModal(videoURL) {
       var modal = document.getElementById("videoModal");
-      var video = document.getElementById("modalVideo");
+      var iframe = document.getElementById("modalVideo");
       var span = document.getElementsByClassName("close")[0];
 
-      // Set the video source and show the modal
-      video.src = videoURL;
+      iframe.src = videoURL;
       modal.style.display = "block";
 
-      // Close the modal on clicking 'X'
       span.onclick = function() {
         modal.style.display = "none";
-        video.pause(); // Pause the video
-        video.src = ""; // Clear the video source
-      };
+        iframe.src = ""; // Stop video when closing
+      }
 
-      // Close the modal if clicked outside the modal content
       window.onclick = function(event) {
         if (event.target == modal) {
           modal.style.display = "none";
-          video.pause(); // Pause the video
-          video.src = ""; // Clear the video source
+          iframe.src = ""; // Stop video when closing
         }
-      };
-
-      // Disable right-click context menu on video (to prevent downloads)
-      video.addEventListener('contextmenu', function(e) {
-        e.preventDefault(); // Disable right-click menu
-      });
+      }
     }
   </script>
 </body>
