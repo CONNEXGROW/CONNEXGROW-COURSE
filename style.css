@@ -32,10 +32,11 @@ h1 {
 /* Main Content - Horizontal Layout */
 section#courses {
   display: flex;
-  flex-wrap: nowrap; /* Ensure the items don't wrap to the next line */
+  flex-direction: row; /* Set courses to appear in a row */
+  flex-wrap: nowrap;   /* Prevents wrapping to a new line */
   gap: 20px;
-  overflow-x: auto; /* Allow horizontal scrolling if content overflows */
-  padding-bottom: 20px; /* Optional: Add some bottom padding for smoother scroll */
+  overflow-x: auto;    /* Enables horizontal scrolling if needed */
+  padding-bottom: 20px; /* Adds padding to the bottom */
 }
 
 .course {
@@ -45,7 +46,7 @@ section#courses {
   margin: 10px;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  min-width: 300px; /* Ensures the course boxes maintain a minimum width */
+  min-width: 300px;   /* Fixed minimum width for horizontal scrolling */
   transition: transform 0.3s, box-shadow 0.3s;
   text-align: center;
 }
@@ -101,7 +102,7 @@ video {
 /* Responsive Design */
 @media (max-width: 768px) {
   section#courses {
-    flex-wrap: wrap; /* Switch to wrapping in mobile view */
+    flex-wrap: wrap; /* On mobile, allow wrapping */
     justify-content: center;
   }
 }
