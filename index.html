@@ -76,6 +76,14 @@
       margin: 20px 0;
       border-radius: 10px;
     }
+
+    video {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      max-height: 500px;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
@@ -105,7 +113,8 @@
   <div id="videoModal" class="modal">
     <div class="modal-content">
       <span class="close">&times;</span>
-      <iframe id="modalVideo" width="100%" height="315" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <!-- Video player instead of iframe -->
+      <video id="modalVideo" controls></video>
     </div>
   </div>
 
@@ -113,21 +122,24 @@
     // Function to open the modal and play the video
     function openVideoModal(videoURL) {
       var modal = document.getElementById("videoModal");
-      var iframe = document.getElementById("modalVideo");
+      var video = document.getElementById("modalVideo");
       var span = document.getElementsByClassName("close")[0];
 
-      iframe.src = videoURL;
+      video.src = videoURL;
       modal.style.display = "block";
+      video.play(); // Auto play the video when modal opens
 
       span.onclick = function() {
         modal.style.display = "none";
-        iframe.src = ""; // Stop video when closing
+        video.pause(); // Pause video when closing
+        video.src = ""; // Stop video from downloading further
       }
 
       window.onclick = function(event) {
         if (event.target == modal) {
           modal.style.display = "none";
-          iframe.src = ""; // Stop video when closing
+          video.pause(); // Pause video when closing
+          video.src = ""; // Stop video from downloading further
         }
       }
     }
